@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4">Sukurkite naują turnyrą</h2>
+    <form id="quizForm" method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.title.label(class="form-label") }}
+            {{ form.title(class="form-control") }}
+            {% if form.title.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.title.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.description.label(class="form-label") }}
+            {{ form.description(class="form-control") }}
+            {% if form.description.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.description.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.style.backgroundImage = 'url("https://www.shutterstock.com/image-photo/qr-bar-code-light-leak-260nw-2291184263.jpg")';
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center center';
+        document.body.style.backgroundAttachment = 'fixed';
+    });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,159 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.button, .custom-login-button, .custom-register-button {
+    display: inline-block;
+    padding: 6px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+    color: #fff; /* Unified text color for better readability */
+    background-color: #191027; /* Default background color */
+}
+
+.button:hover, .custom-login-button:hover, .custom-register-button:hover {
+    background-color: #2e369c; /* Unified hover effect */
+}
+
+.big-button {
+    font-size: 40px;
+    padding: 100px 150px;
+    border-radius: 15px;
+}
+
+.footer-wrapper {
+    margin-top: auto; /* Push the footer to the bottom of the layout */
+    width: 100%;
+    height: 200px;
+}
+
+.center-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.center-text, .login-message, .register-message {
+    text-align: center; /* Center align text for consistency */
+}
+
+.center-text {
+    font-size: 100px;
+    margin-bottom: 20px;
+}
+
+.login-message, .register-message {
+    font-size: 15px;
+}
+
+.custom-login-button {
+    background-color: #7c4dff; /* Specific styles for login button */
+}
+
+.custom-register-button {
+    background-color: #1c2331; /* Specific styles for register button */
+}
+
+.content-info {
+    background: #f9f9f9;
+    padding: 40px 0;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+table {
+    width: 100%;
+    background: #fff;
+    border-collapse: collapse; /* Improve table appearance */
+}
+
+table, th, td {
+    border: 1px solid #dedede;
+}
+
+thead th, tbody td {
+    padding: 20px; /* Unified padding for th and td */
+}
+
+table.table-striped tbody tr:nth-of-type(odd) {
+    background: #f9f9f9;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.flash-messages {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.flash-message {
+    padding: 5px;
+    margin: 5px auto; /* Center flash messages */
+    border-radius: 5px;
+    display: inline-block; /* Inline display for flash messages */
+    width: auto; /* Auto width based on content */
+}
+
+.flash-message.success {
+    background-color: #DFF0D8;
+    color: #3C763D;
+}
+
+.flash-message.danger, .flash-message.warning, .flash-message.info {
+    /* Use general styling for all types of flash messages and differentiate only by colors */
+}
+
+.flash-message.danger {
+    background-color: #F2DEDE;
+    color: #A94442;
+}
+
+.flash-message.warning {
+    background-color: #FCF8E3;
+    color: #8A6D3B;
+}
+
+.flash-message.info {
+    background-color: #D9EDF7;
+    color: #31708F;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.inline-button {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #191027; /* Apply default button background color */
+    color: white;
+    text-decoration: none;
+}
+.container-for-leaderboard {
+    width: 50%; /* arba bet koks pageidaujamas plotis */
+}
+
+.table {
+    background-color: rgba(255, 255, 255, 0.8); /* pridėkite šiek tiek permatomumo */
+}
+
+/* Pridėkite šią taisyklę, kad pagerintumėte teksto matomumą ant paveikslėlio fono */
+.table th, .table td {
+    color: #000; /* arba bet kokia jūsų pasirinkta spalva */
+}
+
+

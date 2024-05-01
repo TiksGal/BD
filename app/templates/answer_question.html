@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ question.content }}</h2>
+    
+    <!-- Display image if available -->
+    {% if question.image_url %}
+        <img src="{{ url_for('static', filename=question.image_url.replace('\\', '/')) }}" alt="Question Image" style="max-width: 50%; height: auto;">
+    {% endif %}
+
+    <!-- Display YouTube video if available -->
+    {% if question.external_url %}
+        <div class="video-responsive">
+            <!-- Replace 'watch?v=' with 'embed/' for embedding the video -->
+            <iframe width="560" height="315" src="{{ question.external_url|replace('watch?v=', 'embed/') }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    {% endif %}
+
+
+
+    <form action="{{ url_for('answer_question', question_id=question.id) }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% if question.question_type == 'testinis' %}
+            <fieldset class="form-group">
+                <legend>Choose your answer:</legend>
+                {% for option in question.options %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="option" id="option{{ option.id }}" value="{{ option.id }}">
+                    <label class="form-check-label" for="option{{ option.id }}">
+                        {{ option.content }}
+                    </label>
+                </div>
+                {% endfor %}
+            </fieldset>
+        {% else %}
+            <div class="form-group">
+                <label for="open_answer">Enter your answer:</label>
+                <input type="text" class="form-control" id="open_answer" name="open_answer">
+            </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Submit Answer</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+

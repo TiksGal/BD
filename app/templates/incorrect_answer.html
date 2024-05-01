@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+    <h1 style="font-size: 36px; color: red; animation: pulse 1s infinite;">Neteisingai!</h1>
+    <p style="font-size: 24px;">Bandykite dar kartą.</p>
+    <a href="{{ url_for('view_tournament', quiz_id=quiz_id) }}" class="btn btn-primary">Grįžti į turnyrą</a>
+</div>
+{% endblock %}
+
+<style>
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>

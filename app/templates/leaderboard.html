@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Turnyro "{{ quiz_name }}" rezultatai</h2>
+    <div class="container-for-leaderboard">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Turnyras</th>
+                <th>Dalyvis</th>
+                <th>Rezultatas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz_name, username, score in leaderboard_entries %}
+            <tr>
+                <td>{{ quiz_name }}</td>
+                <td>{{ username }}</td>
+                <td>{{ score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.style.backgroundImage = 'url("https://img.freepik.com/premium-photo/3d-qr-code-icon-space-text-against-light-background-3d-rendered-digital-symbol_214744-95.jpg")';
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center center';
+        document.body.style.backgroundAttachment = 'fixed';
+    });
+    </script>
+{% endblock %}
+
+

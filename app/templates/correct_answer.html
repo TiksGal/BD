@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+    <h1 style="font-size: 36px; color: green;">Sveikiname!</h1>
+    <p style="font-size: 24px;">Teisingai atsakėte į klausimą.</p>
+    <div style="font-size: 100px;">🎈🎉</div>
+    <a href="{{ url_for('view_tournament', quiz_id=quiz_id) }}" class="btn btn-primary">Grįžti į turnyrą</a>
+</div>
+{% endblock %}

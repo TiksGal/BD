@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h2>{{ quiz.name }} - turnyro santrauka</h2>
+  <p>Aprašymas: {{ quiz.category }}</p>
+  <p>Turnyro kodas: {{ quiz.tourney_code }}</p>
+
+  <h3>Klausimai</h3>
+  <ol>
+    {% for question in questions %}
+    <li>
+      <h4>{{ index }}</h4>
+      <!-- Convert backslashes to forward slashes for the web environment -->
+      {% if question.qr_code_path %}
+        <img src="{{ url_for('static', filename=question.qr_code_path.replace('\\', '/')) }}" alt="QR Code">
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+
+  <a href="{{ url_for('generate_pdf', quiz_id=quiz.id) }}" class="btn btn-primary">Atsisiūsti</a>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      document.body.style.backgroundImage = 'url("https://img.freepik.com/premium-photo/3d-qr-code-icon-space-text-against-light-background-3d-rendered-digital-symbol_214744-95.jpg")';
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center center';
+      document.body.style.backgroundAttachment = 'fixed';
+  });
+  </script>
+{% endblock %}
+

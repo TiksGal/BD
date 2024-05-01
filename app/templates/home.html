@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Tournament page
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    {% if not current_user.is_authenticated %}
+        <h1 style="font-size: 48px; font-weight: bold;">Sveiki atvykę!</h1>
+        <p style="font-size: 24px; font-weight: bold;">Kurk turnyrus, dalinkis QR kodais, stebėk rezultatus!</p>
+        <p style="margin-top: 50px; font-size: 20px; font-weight: bold;">Ar svetainėje esate pirmą kartą?</p>
+        <div style="text-align:center; margin-top: 20px;">
+            <a href="{{ url_for('login') }}" class="button">Ne</a>
+            <a href="{{ url_for('register') }}" class="button">Taip</a>
+        </div>
+    {% else %}
+        <h1 style="font-size: 48px; font-weight: bold;">Sveikas sugrįžęs, {{ current_user.username }}!</h1>
+        <p style="font-size: 24px; font-weight: bold;">Pasiruošk naujiems iššūkiams!</p>
+        <!-- Čia galite pridėti nuorodas į turnyrus ar vartotojo profilį -->
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.body.style.backgroundImage = 'url("https://www.shutterstock.com/image-photo/qr-bar-code-light-leak-260nw-2291184263.jpg")';
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center center';
+    document.body.style.backgroundAttachment = 'fixed';
+});
+</script>
+{% endblock %}
+

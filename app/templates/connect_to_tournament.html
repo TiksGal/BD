@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Connect to Tournament{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Nori dalyvauti?</h2>
+    <p>Įvesk unikalų turnyro koda sudarytą iš 5 simbolių</p>
+    <form method="POST" action="{{ url_for('connect_to_tournament') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="tournament_code">Turnyro kodas</label>
+            <input type="text" id="tournament_code" name="tournament_code" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Jungtis</button>
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.style.backgroundImage = 'url("https://www.shutterstock.com/image-photo/qr-bar-code-light-leak-260nw-2291184263.jpg")';
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center center';
+        document.body.style.backgroundAttachment = 'fixed';
+    });
+    </script>
+{% endblock %}
+

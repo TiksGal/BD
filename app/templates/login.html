@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 ">Prisijungti</legend>
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label ") }}
+                {% if form.username.errors %}
+                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.username(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {% if form.password.errors %}
+                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-check">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label") }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+
+            {{ form.submit(class="btn custom-login-button") }}
+            {% for message in get_flashed_messages() %}
+            <h2 class="login-message">{{ message }}</h2>
+            {% endfor %}
+        </div>
+    </form>
+</div>
+<div class="border-top pt-3">
+    <small class="text-muted">
+        Neregistruotas vartotojas? <a class="ml-2" href="{{ url_for('register') }}">Registruotis</a>
+    </small>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.style.backgroundImage = 'url("https://www.shutterstock.com/image-photo/qr-bar-code-light-leak-260nw-2291184263.jpg")';
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center center';
+        document.body.style.backgroundAttachment = 'fixed';
+    });
+    </script>
+{% endblock %}

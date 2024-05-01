@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Naujas klausimas</h2>
+    <form id="questionForm" method="POST" action="{{ url_for('add_question', quiz_id=quiz_id) }}" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="question_type" class="form-label">Pasirinkite klausimo tipą:</label>
+            <select id="question_type" name="question_type" class="form-control" onchange="toggleQuestionType()">
+                <option value="testinis">Testinis klausimas</option>
+                <option value="atviras">Atviras klausimas</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="question_text" class="form-label">Įveskite klausimą</label>
+            <textarea id="question_text" name="question_text" class="form-control"></textarea>
+        </div>
+
+        <div id="options-container" style="display: none;">
+            <button type="button" id="addOption" class="btn btn-info">Pridėti pasirinkimą</button>
+        </div>
+
+        <div id="open_answer_container" style="display: none;">
+            <div class="form-group">
+                <label for="open_answer" class="form-label">Įrašykite savo atsakymą:</label>
+                <textarea id="open_answer" name="open_answer" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="image" class="form-label">Įkelti paveikslėlį (neprivaloma)</label>
+            <input type="file" id="image" name="image" class="form-control-file">
+        </div>
+
+        <div class="form-group">
+            <label for="external_url" class="form-label">Nuoroda (neprivaloma)</label>
+            <input type="url" id="external_url" name="external_url" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Saugoti klausimą</button>
+    </form>
+
+    <a href="{{ url_for('quiz_summary', quiz_id=quiz_id) }}" class="btn btn-secondary mt-3">Baigti</a>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('question_type').addEventListener('change', toggleQuestionType);
+    toggleQuestionType();  // Initial call to set visibility based on default selection
+});
+
+function toggleQuestionType() {
+    var questionType = document.getElementById('question_type').value;
+    var optionsContainer = document.getElementById('options-container');
+    var openAnswerContainer = document.getElementById('open_answer_container');
+    optionsContainer.style.display = (questionType === 'testinis') ? 'block' : 'none';
+    openAnswerContainer.style.display = (questionType === 'atviras') ? 'block' : 'none';
+}
+
+document.getElementById('addOption').addEventListener('click', function() {
+    const container = document.getElementById('options-container');
+    let optionIndex = container.querySelectorAll('.form-group').length;
+    if(optionIndex < 4) {
+        const optionDiv = document.createElement('div');
+        optionDiv.classList.add('form-group');
+        optionDiv.innerHTML = `
+            <label for="option_text_${optionIndex}">Variantas ${optionIndex + 1}</label>
+            <input type="text" id="option_text_${optionIndex}" name="option_text_${optionIndex}" class="form-control">
+            <div class="form-check">
+                <input type="checkbox" id="is_correct_${optionIndex}" name="is_correct_${optionIndex}" class="form-check-input">
+                <label class="form-check-label" for="is_correct_${optionIndex}">Teisingas</label>
+            </div>
+        `;
+        container.appendChild(optionDiv);
+    }
+});
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.style.backgroundImage = 'url("https://www.shutterstock.com/image-photo/qr-bar-code-light-leak-260nw-2291184263.jpg")';
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center center';
+        document.body.style.backgroundAttachment = 'fixed';
+    });
+</script>
+{% endblock %}
+

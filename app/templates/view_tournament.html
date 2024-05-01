@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>Turnyras -{{ quiz.name }}</h1>
+  <h1>Sėkmės {{ current_user.username }}!</h1>
+  <button id="startScan">Skenuoti QR kodą</button>
+  <canvas id="qr-canvas" width="320" height="240" style="display:none;"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@latest/dist/jsQR.js"></script>
+  <script>
+    const video = document.createElement('video');
+    const canvasElement = document.getElementById('qr-canvas');
+    const canvas = canvasElement.getContext('2d');
+
+    // Paslėptas vaizdo elementas QR kodų nuskaitymui
+    document.body.appendChild(video);
+
+    document.getElementById('startScan').addEventListener('click', () => {
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(function(stream) {
+          video.srcObject = stream;
+          video.setAttribute("playsinline", true); // reikalingas iOS veikimui
+          video.play();
+          requestAnimationFrame(tick);
+        });
+    });
+
+    function tick() {
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvasElement.hidden = false;
+        canvasElement.height = video.videoHeight;
+        canvasElement.width = video.videoWidth;
+        canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+
+        var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+        var code = jsQR(imageData.data, imageData.width, imageData.height);
+
+        if (code) {
+          video.srcObject.getTracks().forEach(track => track.stop()); // Sustabdyti kamerą
+          video.remove();
+          // Handle the scanned code as needed
+          window.location.href = code.data;
+        } else {
+          requestAnimationFrame(tick);
+        }
+      } else {
+        requestAnimationFrame(tick);
+      }
+    }
+  </script>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.style.backgroundImage = 'url("https://img.freepik.com/premium-photo/3d-qr-code-icon-space-text-against-light-background-3d-rendered-digital-symbol_214744-95.jpg")';
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center center';
+        document.body.style.backgroundAttachment = 'fixed';
+    });
+    </script>
+{% endblock %}
