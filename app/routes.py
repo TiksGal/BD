@@ -35,7 +35,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password_hash, form.password.data):
             login_user(user, remember=form.remember.data)
             return redirect(url_for("home"))
-        flash("Invalid username or password", "danger")
+        flash("Neteisingas vartotojo vardas arba slaptažodis", "danger")
     return render_template("login.html", form=form)
 
 @app.route("/logout")
@@ -239,7 +239,7 @@ def answer_question(question_id):
     current_quiz_id = session.get('current_quiz_id')
     
     if not current_quiz_id or current_quiz_id != question.quiz_id:
-        flash('You are not allowed to answer this question.', 'danger')
+        flash('Jūs negalite atsakyti į šį klausimą nes jis priskirtas kitam turnyrui.', 'danger')
         return redirect(url_for('view_tournament', quiz_id=current_quiz_id))
 
     if request.method == 'POST':
@@ -283,7 +283,7 @@ def incorrect_answer(quiz_id):
 def leaderboard():
     current_quiz_id = session.get('current_quiz_id')
     if not current_quiz_id:
-        flash('Please join a quiz to view the leaderboard.', 'warning')
+        flash('Prisijunkite prie turnyro norėdami peržiūrėti jo rezultatus.', 'warning')
         return redirect(url_for('home'))
     
     leaderboard_entries = db.session.query(

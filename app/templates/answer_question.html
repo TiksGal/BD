@@ -23,7 +23,7 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         {% if question.question_type == 'testinis' %}
             <fieldset class="form-group">
-                <legend>Choose your answer:</legend>
+                <legend>Pasirinkite teisinga variantą:</legend>
                 {% for option in question.options %}
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="option" id="option{{ option.id }}" value="{{ option.id }}">
@@ -35,11 +35,11 @@
             </fieldset>
         {% else %}
             <div class="form-group">
-                <label for="open_answer">Enter your answer:</label>
+                <label for="open_answer">Įveskite teisingą atsakymą:</label>
                 <input type="text" class="form-control" id="open_answer" name="open_answer">
             </div>
         {% endif %}
-        <button type="submit" class="btn btn-primary">Submit Answer</button>
+        <button type="submit" class="btn btn-primary">Patvirtinti atsakymą</button>
     </form>
 </div>
 {% endblock %}

@@ -39,7 +39,7 @@
         </fieldset>
         <div class="form-group">
 
-            {{ form.submit(class="btn custom-login-button") }}
+            {{ form.submit(value="Prisijungti", class="btn custom-login-button") }}
             {% for message in get_flashed_messages() %}
             <h2 class="login-message">{{ message }}</h2>
             {% endfor %}
