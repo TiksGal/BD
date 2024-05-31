@@ -56,7 +56,7 @@ pyphen==0.14.0
 pypng==0.20220715.0
 pytest==8.2.0
 python-dateutil==2.9.0.post0
-pywin32==306
+pywin32==306; sys_platform == 'win32'
 pyzmq==26.0.2
 qrcode==7.4.2
 reportlab==4.1.0

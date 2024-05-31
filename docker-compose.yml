@@ -1,0 +1,20 @@
+version: "3.11"
+services:
+  hangman_app:
+    container_name: QR_tournaments
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_HOST=https://localhost
+      - PROJECT_NAME=QR_tournaments
+      - SECRET_KEY=7e00696cd12d5df1dea20f5056a5f47e
+    ports:
+      - "8000:8000"
+    networks:
+      - development
+    volumes:
+       - .:~/Python/Bakalauras/app
+
+networks:
+  development:

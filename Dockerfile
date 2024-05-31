@@ -1,7 +1,11 @@
-FROM python:3.11
+# Use an older Python version that's compatible with all dependencies
+FROM python:3.9
 
 WORKDIR /app
-COPY ./requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
-COPY . /app
-CMD python run.py
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["python", "run.py"]

@@ -311,3 +311,58 @@ def error_404(error):
 @app.errorhandler(500)
 def error_500(error):
     return render_template("500.html"), 500
+
+@app.route('/user_tournaments')
+@login_required
+def user_tournaments():
+    tournaments = Quiz.query.filter_by(creator_id=current_user.id).all()
+    return render_template('user_tournaments.html', tournaments=tournaments)
+
+@app.route('/edit_quiz/<int:quiz_id>', methods=['GET', 'POST'])
+@login_required
+def edit_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    if quiz.creator_id != current_user.id:
+        flash('You do not have permission to edit this quiz.', 'danger')
+        return redirect(url_for('user_tournaments'))
+
+    form = QuizForm(obj=quiz)
+    if form.validate_on_submit():
+        quiz.name = form.title.data
+        quiz.category = form.description.data
+        db.session.commit()
+        flash('Quiz updated successfully!', 'success')
+        return redirect(url_for('quiz_summary', quiz_id=quiz.id))
+
+    return render_template('edit_quiz.html', form=form, quiz=quiz)
+
+@app.route('/edit_question/<int:question_id>', methods=['GET', 'POST'])
+@login_required
+def edit_question(question_id):
+    question = Question.query.get_or_404(question_id)
+    if question.quiz.creator_id != current_user.id:
+        flash('Jūs neturite teisių redaguoti šį klausimą.', 'danger')
+        return redirect(url_for('home'))
+
+    form = QuestionForm(obj=question)
+    if form.validate_on_submit():
+        question.content = form.content.data
+        question.correct_answer = form.correct_option.data
+        db.session.commit()
+        flash('Klausimas sėkmingai atnaujintas!', 'success')
+        return redirect(url_for('edit_quiz', quiz_id=question.quiz_id))
+
+    return render_template('edit_question.html', form=form, question=question)
+
+@app.route('/delete_question/<int:question_id>', methods=['POST'])
+@login_required
+def delete_question(question_id):
+    question = Question.query.get_or_404(question_id)
+    if question.quiz.creator_id != current_user.id:
+        flash('Jūs neturite teisių ištrinti šį klausimą.', 'danger')
+        return redirect(url_for('home'))
+
+    db.session.delete(question)
+    db.session.commit()
+    flash('Klausimas sėkmingai ištrintas!', 'success')
+    return redirect(url_for('edit_quiz', quiz_id=question.quiz_id))
